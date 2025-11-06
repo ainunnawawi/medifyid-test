@@ -6,7 +6,9 @@
     $(document).ready(function() {
         $('#table').DataTable({
             searching: false,
-            order: [[0, 'desc']],
+            order: [
+                [0, 'desc']
+            ],
         });
         getData();
     });
@@ -25,7 +27,7 @@
         dataTableObj.clear().draw();
 
         $.ajax({
-            url: '{{ url("master-items/search") }}',
+            url: '{{ url('master-items/search') }}',
             dataType: 'json',
             tryCount: 0,
             retryLimit: 3,
@@ -40,22 +42,29 @@
 
                 $.each(data, function(index, item) {
                     var kode = item.kode;
-                    var htmlView = `<a href="{{ url('master-items/view') }}/${kode}" class="btn btn-primary btn-sm">View</a>`;
+                    var htmlView =
+                        `<a href="{{ url('master-items/view') }}/${kode}" class="btn btn-primary btn-sm">View</a>`;
 
-                    // ✅ urutan kolom sesuai thead
+                    // ✅ buat HTML gambar kecil
+                    var foto =
+                        `<img src="${item.foto_url}" alt="foto" class="img-thumbnail" width="60" height="60">`;
+
+                    // urutan sesuai <thead>
                     var array_temp = [
                         item.kode,
+                        foto,
                         item.nama,
                         item.jenis,
                         item.harga_beli,
                         item.harga_jual,
                         item.supplier,
-                        item.kategori ?? '-', // kategori gabungan dari backend
+                        item.kategori ?? '-',
                         htmlView
                     ];
 
                     dataTableObj.row.add(array_temp).draw(true);
                 });
+
 
                 $('#loading-filter').hide();
             },

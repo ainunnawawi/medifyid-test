@@ -3,6 +3,7 @@
         <thead class="table-light">
             <tr>
                 <th>Kode</th>
+                <th>Foto</th>
                 <th>Nama</th>
                 <th>Jenis</th>
                 <th>Harga Beli</th>
